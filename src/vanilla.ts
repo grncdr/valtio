@@ -243,9 +243,12 @@ export function subscribe<T extends object>(
 }
 
 type AnyFunction = (...args: any[]) => any
+type AnyPrimitive = string | number | bigint | boolean | symbol
 type Snapshot<T> = T extends AnyFunction
   ? T
   : T extends AsRef
+  ? T
+  : T extends AnyPrimitive
   ? T
   : T extends Promise<infer V>
   ? Snapshot<V>
